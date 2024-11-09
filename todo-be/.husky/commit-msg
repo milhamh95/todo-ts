@@ -1,0 +1,3 @@
+echo "run husky commit lint"
+cd todo-be
+bunx --no -- commitlint --edit $1
