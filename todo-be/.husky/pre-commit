@@ -1,1 +1,1 @@
-cd todo-be && bun lint && bun test
+cd ./todo-be && bun lint && bun test
