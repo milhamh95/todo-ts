@@ -1,1 +1,3 @@
 echo "run husky be"
+cd todo-be
+bun lint

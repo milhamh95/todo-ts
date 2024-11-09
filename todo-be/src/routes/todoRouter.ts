@@ -11,8 +11,6 @@ export const todoRouter = new Elysia().group("/todos", (app) =>
       async ({ set }: Context) => {
         const todos = await todoService.fetchTodo();
 
-        let data = 1;
-
         set.status = 200;
         return createResponse(todos);
       },
