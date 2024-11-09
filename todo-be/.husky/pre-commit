@@ -1,2 +1,2 @@
+cd todo-be
 bun lint
-
