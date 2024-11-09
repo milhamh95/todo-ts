@@ -1,17 +1,21 @@
 import { Todo } from "@prisma/client";
-import { TodoRepository } from "../repositories/todoRepository";
-import { ITodoService } from "./iTodoService";
 import { NotFoundError } from "elysia";
+import { inject, injectable } from "inversify";
 
+import { TYPES } from "../ioc/types";
+import { TodoRepository } from "../repositories/todoRepository";
+import { AddTodoRequest, EditTodoRequest,ITodoService } from "./iTodoService";
+
+@injectable()
 export class TodoService implements ITodoService {
   private readonly todoRepository: TodoRepository;
 
-  constructor(todoRepository: TodoRepository) {
+  constructor(@inject(TYPES.todoRepo) todoRepository: TodoRepository) {
     this.todoRepository = todoRepository;
   }
 
-  addTodo() {
-    console.log("addTodo");
+  async addTodo(req: AddTodoRequest): Promise<Todo> {
+    return await this.todoRepository.addTodo(req);
   }
 
   async fetchTodo(): Promise<Todo[]> {
@@ -28,11 +32,11 @@ export class TodoService implements ITodoService {
     return todo;
   }
 
-  editTodo() {
-    console.log("addTodo");
+  async editTodo(id: string, req: EditTodoRequest): Promise<Todo> {
+    return await this.todoRepository.editTodo(id, req);
   }
 
-  removeTodo() {
-    console.log("addTodo");
+  async removeTodo(id: string) {
+    await this.todoRepository.removeTodo(id);
   }
 }
